@@ -11,6 +11,31 @@ const client = require('../index.js')
 
 const ChatController = {
 
+    async signUpUser(req,res) {
+        const { email, password} = req.body
+        console.log("the email is", email)
+        console.log('the password is', password)
+        try {
+            const userExists = await db
+            .get()
+            .db('users')
+            .collection('user-login')
+            .findOne({email})
+            if(userExists){
+                console.log('User exists!', userExists)
+            } else{
+                db
+                .get()
+                .db('users')
+                .collection('user-login')
+                .insertOne({email,password})
+            }
+            
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
     async createMessage(req,res,next) {
         const { message, author } = req.body
         try{

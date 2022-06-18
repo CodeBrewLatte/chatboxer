@@ -4,19 +4,46 @@
   "description": "node test app",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon index.js"
+    "dev": "concurrently \"nodemon server/server.js\" \"webpack serve --open\"",
+    "start": "nodemon index.js",
+    "build": "webpack"
   },
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "browserify": "^17.0.0",
+    "dotenv": "^16.0.1",
     "express": "^4.18.1",
+    "gulp": "^4.0.2",
     "mongoose": "^6.3.5",
     "mongosh": "^1.5.0",
-    "nodemon": "^2.0.16"
+    "nodemon": "^2.0.16",
+    "prop-types": "^15.6.1",
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-hot-loader": "^4.13.0"
   },
   "engines": {
     "node": "18.2.0"
   },
-  "devDependencies": {}
+  "devDependencies": {
+    "@babel/core": "^7.18.5",
+    "@babel/preset-env": "^7.18.2",
+    "@babel/preset-react": "^7.17.12",
+    "babel-loader": "^8.2.5",
+    "concurrently": "^6.5.1",
+    "cross-env": "^7.0.3",
+    "css-loader": "^6.7.1",
+    "html-webpack-plugin": "^5.5.0",
+    "isomorphic-fetch": "^3.0.0",
+    "nodemon": "^2.0.16",
+    "postcss": "^8.4.14",
+    "postcss-loader": "^7.0.0",
+    "sass": "^1.52.3",
+    "sass-loader": "^13.0.0",
+    "style-loader": "^3.3.1",
+    "webpack": "^5.73.0",
+    "webpack-cli": "^4.8.0",
+    "webpack-dev-server": "^4.9.2"
+  }
 }

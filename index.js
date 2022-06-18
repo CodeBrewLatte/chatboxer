@@ -1,19 +1,55 @@
 const express = require('express')
 const app = express()
 const port = process.env.PORT || 3000
-const ChatMessage = require('./schema/chat.js')
 const ChatController = require("./controllers/chatcontroller.js")
-const mongoose = require('mongoose')
-const { MongoClient, ServerApiVersion } = require('mongodb');
-const res = require('express/lib/response')
-const uri = require('./personal.js')
 const db  = require('./mongoUtil.js')
+const path = require('path')
+const { connect } = require('http2')
 
 db.connect(() => {
     app.listen(port,() => {
         console.log('Server Connected')
     })
 })
+
+app.use(express.json());
+
+app.use('/build',express.static(path.join(__dirname,'../build')))
+
+app.use(express.static(__dirname + '/client'));
+
+
+app.route('/')
+.get((req,res) => {
+    //need to send an HTML page
+    res.sendFile(path.join(__dirname,'./client/index.html'))
+})
+.post(ChatController.createMessage,(req,res) => {
+    //res.send('Message received')
+})
+
+app.get('/build/bundle.js', (req,res) => {
+    res.sendFile(path.join(__dirname,'/build/bundle.js'))
+})
+
+app.route('/sign-up')
+.get((req,res) => {
+    res.sendFile(path.join(__dirname,'./client/index.html'))
+})
+.post((req,res) => {
+    ChatController.signUpUser(req)
+    console.log('Post request hit')
+    res.status(200)
+})
+
+// app.get('/dist/bundle.js',(req,res) => {
+//     res.sendFile(path.join(__dirname,'/dist/bundle.js'))
+// })
+//Code Graveyard
+
+// app.listen(port, ()=> {
+//     console.log('App is listening on port',port)
+// })
 
 // async function connectDB(){
 
@@ -54,24 +90,7 @@ db.connect(() => {
 
 // connectDB()
 
-
-async function listDatabases(client){
-   const databaseList =  await client.db().admin().listDatabases()
-   console.log(databaseList.databases)
-}
-
-
-app.use(express.json());
-
-app.get("/",(req,res) => {
-    //need to send an HTML page
-    res.send('App works!')
-})
-
-app.post("/", ChatController.createMessage,(req,res) => {
-    //res.send('Message received')
-})
-
-// app.listen(port, ()=> {
-//     console.log('App is listening on port',port)
-// })
+// async function listDatabases(client){
+//     const databaseList =  await client.db().admin().listDatabases()
+//     console.log(databaseList.databases)
+//  }
