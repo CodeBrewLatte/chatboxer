@@ -40,7 +40,8 @@ module.exports = {
         port: 8080,
         //proxy allows us to mimic localhost 3000 requests
         //the server by default does not respond to 8080
-        proxy: {'/api': 'http://localhost:3000'}
+        proxy: {'/api': 'http://localhost:3000'},
+        hot: true
     },
-    plugins: [new HtmlWebpackPlugin({template: './client/index.html'})]
+    plugins: [new HtmlWebpackPlugin()]
 }

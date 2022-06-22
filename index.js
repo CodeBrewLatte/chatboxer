@@ -18,7 +18,6 @@ app.use('/build',express.static(path.join(__dirname,'../build')))
 
 app.use(express.static(__dirname + '/client'));
 
-
 app.route('/')
 .get((req,res) => {
     //need to send an HTML page
@@ -38,8 +37,30 @@ app.route('/sign-up')
 })
 .post((req,res) => {
     ChatController.signUpUser(req)
-    console.log('Post request hit')
     res.status(200)
+})
+
+app.route('/login')
+.get((req,res) => {
+    res.sendFile(path.join(__dirname,'./client/index.html'))
+})
+.post(ChatController.login, (req,res) => {
+    // ChatController.login(req,res)
+    console.log('Exit post')
+    res.send({message:'Valid'})
+    //res.sendFile(path.join(__dirname,'./client/index.html'))
+    //res.status(200)
+})
+
+app.get('/chatmain',(req,res) => {
+    console.log('Home get triggered')
+    res.sendFile(path.join(__dirname,'./client/chatmain.html'))
+    //need to send an HTML page
+    //res.sendFile(path.join(__dirname,'./client/chatmain.html'))
+})
+
+app.get('/chatdata', ChatController.chatData,(req,res) => {
+    //nothing
 })
 
 // app.get('/dist/bundle.js',(req,res) => {

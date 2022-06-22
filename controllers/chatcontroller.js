@@ -8,6 +8,7 @@ const { disable } = require('express/lib/application');
 const Message = require('../schema/chat.js');
 const db  = require('../mongoUtil.js')
 const client = require('../index.js')
+const path = require('path')
 
 const ChatController = {
 
@@ -68,7 +69,51 @@ const ChatController = {
                 console.log(result.message)
             })
 
-            next()
+            
+
+        } catch(error){
+            console.log("Error hit on message creation")
+            console.log(error)
+            return res.status(300).json(error)
+        }
+    },
+    async login(req,res,next) {
+     const { email , password } = req.body
+     userExists = await db.get().db('users').collection('user-login').findOne({email,password})
+
+     if(userExists) {
+        console.log('Welcome!!!')
+        // res.redirect('/home')
+        // return res.sendFile(path.join(__dirname,'../client/index.html'))
+        next()
+     } else{
+         console.log('Incorrect login information present')
+         res.send({error: "Incorrect username or password"})
+     }
+
+    },
+
+    async chatData(req,res) {
+        try{
+            console.log('Chat data entered!')
+            const cursor = db
+            .get()
+            .db('chat-topics')
+            .collection('art')
+            .find()
+            .limit(20);
+
+
+            const results = await cursor.toArray()
+            
+            console.log(results)
+            res.send(results)
+            
+            // results.forEach((result) => {
+            //     res.send(result.message)
+            // })
+
+            
 
         } catch(error){
             console.log("Error hit on message creation")
@@ -76,6 +121,5 @@ const ChatController = {
             return res.status(300).json(error)
         }
     }
-}
-
+}   
 module.exports = ChatController

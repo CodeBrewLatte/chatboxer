@@ -24,7 +24,7 @@ body {
     align-items: center;
 }
 
-.btn{
+.btn {
     width: 200px;
     height: 50px;
     margin-top: 30px;
@@ -38,7 +38,7 @@ body {
     color: white;
 }
 
-.form-box-field{
+.form-box-field {
     display: flex;
     width: 200px;
     height: 50px;
@@ -47,4 +47,36 @@ body {
     border: .5px grey solid;
     border-radius: 5px;
 
+}
+
+#chatinterface {
+    display: flex;
+    width: 900px;
+    height: 900px;
+    background-color: greenyellow;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+#App-Container-App {
+    display: flex;
+    width: 1050px;
+    background-color: white;
+    height: 1250px;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    border-radius: 5px;
+    flex-direction: column;
+}
+
+.chatmessage {
+    display: flex;
+    background-color: rgb(13, 255, 255);
+    width: 150px;
+    height: 100px;
+    align-items: center;
+    justify-content: center;
+    margin: 30px;
 }

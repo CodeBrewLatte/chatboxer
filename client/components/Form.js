@@ -17,7 +17,7 @@ const [signUpPassword, setSignUpPassword] = useState('')
 
     console.log('Databody ->', dataBody)
 
- fetch('http://localhost:3000/sign-up', {  // Enter your IP address here
+ fetch('sign-up', {  // Enter your IP address here
 
       method: 'POST', 
       mode: 'cors', 
@@ -34,11 +34,15 @@ const [signUpPassword, setSignUpPassword] = useState('')
   
 
     return (
+        <div id="signup-form-component"> 
+        <h1> Sign Up </h1>
         <form id="signup-form" onSubmit={(e) => {signUpData(e)}}>
             <input type="email" name="email" id='email-signup' value={signUpEmail} onChange={e => setSignUpEmail(e.target.value) } className="form-box-field" placeholder="Email"></input>
             <input type="password" name="password" id="password-signup" value={signUpPassword} onChange={e => setSignUpPassword(e.target.value)} placeholder="Password" className="form-box-field"></input>
             <button>Register</button>
         </form>
+        <p id="server-response-signup"> </p>
+        </div>
     )
 }
 
